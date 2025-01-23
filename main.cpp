@@ -29,6 +29,7 @@ int main() {
   char buffer[10];  // Asegúrate de que el tamaño del buffer sea suficiente
   sprintf(buffer, "Health: %d  ", health);  // Convierte el entero en una cadena
   LCD_WriteText(buffer);  // Muestra el número en el LCD
+  _delay_ms(1000);
   // initialize Serial (UART) communication
   uart_init(9600,0);
   sei();
@@ -92,6 +93,9 @@ int main() {
     }
     if (health<50){
       digitalWrite(ledPin, LOW);
+    }
+    if (health>100){
+      health=100;
     }
     _delay_ms(1000);
   }
