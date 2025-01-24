@@ -7,8 +7,6 @@
 
 #include "Arduino.h"
 
-int ledPin = 13;
-
 int main() {
   LCD_Initalize();
   LCD_Clear();
@@ -19,7 +17,6 @@ int main() {
 
   ADC_Init();
 
-  pinMode(ledPin, OUTPUT);
   int health = 100;
   int counter = 0;
   char buffer[10];  // Asegúrate de que el tamaño del buffer sea suficiente
@@ -32,7 +29,7 @@ int main() {
   uart_send_string((uint8_t*)"0.Status; 1.Feed; 2.Play \n");
   while (1) {
     LCD_GoTo(0,0);
-    LCD_WriteText("TAMA");
+    LCD_WriteText("TAMA ");
     LCD_GoTo(1,1);
     sprintf(buffer, "Health: %d  ", health);  // Convierte el entero en una cadena
     LCD_WriteText(buffer);  // Muestra el número en el LCD
@@ -64,12 +61,6 @@ int main() {
 
     if (counter%2==0){
       health--;
-    }
-    if (health>=50){
-      digitalWrite(ledPin, HIGH);
-    }
-    if (health<50){
-      digitalWrite(ledPin, LOW);
     }
     if (health>100){
       health=100;
